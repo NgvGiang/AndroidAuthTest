@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FirebaseSDKAuthTest</string>
+    <string name="client_id">986576678666-aub1tsogkpqesq2u8cfsn037bdqhgkk5.apps.googleusercontent.com</string>
+    <string name="Oauth_client_id">986576678666-aub1tsogkpqesq2u8cfsn037bdqhgkk5.apps.googleusercontent.com</string>
+</resources>
