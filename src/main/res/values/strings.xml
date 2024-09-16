@@ -2,4 +2,7 @@
     <string name="app_name">FirebaseSDKAuthTest</string>
     <string name="client_id">986576678666-aub1tsogkpqesq2u8cfsn037bdqhgkk5.apps.googleusercontent.com</string>
     <string name="Oauth_client_id">986576678666-aub1tsogkpqesq2u8cfsn037bdqhgkk5.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_job">Thêm Công Việc</string>
 </resources>
