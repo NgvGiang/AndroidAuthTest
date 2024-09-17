@@ -17,6 +17,7 @@ import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
 import androidx.credentials.exceptions.GetCredentialException;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,13 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         credentialManager = CredentialManager.create(this);
-
+        
 
         GetSignInWithGoogleOption getSignInWithGoogleOption = new GetSignInWithGoogleOption.Builder(getString(R.string.Oauth_client_id))
                 .build();
         GetCredentialRequest getCredentialRequest = new GetCredentialRequest.Builder()
-                .addCredentialOption(getSignInWithGoogleOption)
+                .addCredentialOption(getSignInWithGoogleOption) // request google login
+                //more options can be added here, such as email login, etc.
                 .build();
+        //click event for logging in with google
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onResult(GetCredentialResponse result) {
                                 handleSignIn(result);
-
                             }
                             @Override
                             public void onError(GetCredentialException e) {
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
+    // sign in with google, then google return an idToken, send this token to firebase to authenticate
     private void handleSignIn(GetCredentialResponse result) {
         Log.d(TAG, "handleSignIn called");
         Credential credential = result.getCredential();
@@ -81,12 +83,12 @@ public class LoginActivity extends AppCompatActivity {
             if (GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL.equals(credential.getType())) {
                 GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(((CustomCredential) credential).getData());
                 String idToken = googleIdTokenCredential.getIdToken();
-                Log.d(TAG, "ID Token: " + idToken);
                 firebaseAuthWithGoogle(idToken);
             }
         }
     }
 
+    //firebase authenticate using above idToken
     private void firebaseAuthWithGoogle(String idToken) {
         Log.d(TAG, "firebaseAuthWithGoogle called with ID Token: " + idToken);
         mAuth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
@@ -114,6 +116,11 @@ public class LoginActivity extends AppCompatActivity {
 //                        }
                     }
                 });
+    }
+
+    //firebase authenticate with email and password
+    private void firebaseAuthWithEmailAndPassword(String email,String password){
+
     }
 
 }

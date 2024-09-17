@@ -5,26 +5,24 @@ import java.util.HashMap;
 
 
 public class Person {
-    private String id;
+
     private String name;
 
     private String gender;
 
     private int birthYear;
-    private HashMap<String, Job> jobs;
 
-    public Person(String id,String name, String gender, int birthYear) {
-        this.id = id;
+
+    public Person(String name, String gender, int birthYear) {
+
         this.name = name;
         this.gender = gender;
         this.birthYear = birthYear;
-        this.jobs = new HashMap<>();
+
     }
     public Person() {
     }
-    public String getId() {
-        return id;
-    }
+
     public String getName() {
         return name;
     }
